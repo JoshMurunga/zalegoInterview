@@ -18,7 +18,7 @@ if (isset($_POST['signup'])) {
 
     if ($password != $cpassword) {
         $errors = true;
-        $_SESSION['message'] = 'Passwords Do Not Match.';
+        echo 'Passwords Do Not Match Please <a href="index.php">Try Again</a>';
     }
 
     if (!$errors) {
@@ -29,6 +29,8 @@ if (isset($_POST['signup'])) {
         mysqli_query($conn, $query);
         $_SESSION['username'] = $username;
         header('location: login.php');
+    } else {
+        echo 'There was an error in database connection <a href="index.php">Try Again</a>';
     }
 }
 
@@ -48,9 +50,10 @@ if (isset($_POST['login'])) {
             $_SESSION['expire'] = $_SESSION['start'] + (5 * 60);
             header('location: home.php');
         } else {
-            $_SESSION['message'] = 'Invalid Credentials.';
-            header('location: login.php');
+            echo 'Invalid Credentials <a href="login.php">Try Again</a>';
         }
+    } else {
+        echo 'There was an error in database connection <a href="login.php">Try Again</a>';
     }
 }
 
@@ -67,6 +70,8 @@ if (isset($_POST['editdetails'])) {
         if ($results) {
             header('location: home.php');
         }
+    } else {
+        echo 'There was an error in database connection <a href="index.php">Try Again</a>';
     }
 }
 
@@ -104,7 +109,7 @@ if (isset($_POST['reset'])) {
             $mail->isHTML(true);
 
             $mail->Subject = 'Your New Password';
-            $mail->Body = 'Use the following as your new password: ' .$newpassword;
+            $mail->Body = 'Use the following as your new password: ' . $newpassword;
 
             $mail->smtpConnect(
                     array(
