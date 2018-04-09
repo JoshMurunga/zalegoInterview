@@ -20,7 +20,7 @@ and open the template in the editor.
             <div class="navbar-fixed">
                 <nav class="white" role="navigation">
                     <div class="nav-wrapper center">
-                        <a href="index.php" class="brand-logo teal-text">The Interview</a>
+                        <a href="#" class="brand-logo teal-text">The Interview</a>
                     </div>
                 </nav>
             </div>
