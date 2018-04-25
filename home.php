@@ -89,11 +89,7 @@ and open the template in the editor.
                                         <img src="uploads/<?php echo $row['file'] ?>" alt="img">
                                         <div class="card-content">
                                             <?php
-                                            $sql = "SELECT * FROM comments";
-                                            $res = mysqli_query($conn, $query);
-                                            while ($rows = mysqli_fetch_array($res)) {
-                                                echo $rows['comments'];
-                                            }
+                                            echo $row['comments'];
                                             ?>
                                         </div>
 

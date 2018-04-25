@@ -75,9 +75,11 @@ function comment($data) {
     $conn = connect();
     
     if($conn){
-        $query = "UPDATE image_comments SET comments='".$data['comment']."' WHERE file='".$data['id']."'";
+        $query = "UPDATE uploads SET comments='".$data['comment']."' WHERE file='".$data['id']."'";
         mysqli_query($conn, $query);
         
         header('location: home.php');
+    } else{
+        echo 'not';
     }
 }

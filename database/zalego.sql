@@ -50,9 +50,9 @@ CREATE TABLE `uploads` (
   `file` varchar(45) DEFAULT NULL,
   `size` varchar(45) DEFAULT NULL,
   `type` varchar(45) DEFAULT NULL,
-  `comments` int(11) DEFAULT NULL,
+  `comments` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -61,6 +61,7 @@ CREATE TABLE `uploads` (
 
 LOCK TABLES `uploads` WRITE;
 /*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
+INSERT INTO `uploads` VALUES (4,'screenshot-(15).png','image/png','895.548828125',NULL);
 /*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,7 +85,7 @@ CREATE TABLE `user` (
   `token` varchar(45) DEFAULT NULL,
   `tstamp` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,6 +94,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (4,'Josh','Ko',1,'c','Ko','$2y$11$6g/b1.9DUvslBK1dUya8gO1HEvHuYKeDa/AMZzChFjlXgfpN9M3WG',1,'joshmurush@gmail.com',NULL,NULL),(3,'Jane','Doe',2,'python','Remy','$2y$11$mct9LBe6vqkxuZTU2vq45ONQzRIj7MGGnL0SVxJTzA1ars4TtUbUC',2,'janed@me.com',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -105,4 +107,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-25 15:26:28
+-- Dump completed on 2018-04-25 15:41:44
