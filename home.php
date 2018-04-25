@@ -15,10 +15,10 @@ and open the template in the editor.
     <body>
         <?php
         session_start();
-        
+
         include('connect.php');
 
-        if (!isset($_SESSION['id'])) {
+        if (!isset($_SESSION['user'])) {
             $_SESSION['msg'] = "You must log in first";
             header('location: login.php');
         } else {
@@ -28,11 +28,14 @@ and open the template in the editor.
                 header('location: login.php');
             }
         }
-        
-        $query = "SELECT * FROM user WHERE id=".$_SESSION['id'];
+
+        $conn = connect();
+        $query = "SELECT * FROM user WHERE id=" . $_SESSION['user'];
         $results = mysqli_query($conn, $query);
         $row = mysqli_fetch_array($results);
-        
+
+        $csrf = hash_hmac('sha256', 'my gym partner is a monkey', $_SESSION['user']);
+        setcookie('csrftoken', $csrf);
         ?>
         <header class="page-topbar">
             <div class="navbar-fixed">
@@ -64,19 +67,66 @@ and open the template in the editor.
                         </thead>
                         <tbody>
                             <tr>
-                                <td><?php echo $row['username'] ?></td>
+                                <td><?php echo $row['username']; ?></td>
                                 <td><?php echo $row['firstname']; ?></td>
                                 <td><?php echo $row['lastname']; ?></td>
                                 <td><a class="waves-effect waves-light btn modal-trigger" href="#edit">Edit</a></td>
                             </tr>
                         </tbody>
                     </table>
+
+                    <?php
+                    $conn = connect();
+                    $query = "SELECT * FROM uploads";
+                    $results = mysqli_query($conn, $query);
+                    while ($row = mysqli_fetch_array($results)) {
+                        ?>
+
+                        <div class="row">
+                            <div class="col s12 m7">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <img src="uploads/<?php echo $row['file'] ?>" alt="img">
+                                        <div class="card-content">
+                                            <?php
+                                            $sql = "SELECT * FROM comments";
+                                            $res = mysqli_query($conn, $query);
+                                            while ($rows = mysqli_fetch_array($res)) {
+                                                echo $rows['comments'];
+                                            }
+                                            ?>
+                                        </div>
+
+                                        <div class="row">
+                                            <form class="col s12" method="POST" action="addcomment.php">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <input type="hidden" name="csrf" value="<?php echo $csrf ?>">
+                                                        <input type="hidden" name="id" value="<?php echo $row['file'] ?>">
+                                                        <textarea id="textarea1" name="textarea1" class="materialize-textarea"></textarea>
+                                                        <label for="textarea1">Add Comment Here...</label>
+                                                    </div>
+                                                    <div class="container">
+                                                        <button class="btn col s12 waves-effect waves-light" type="submit" name="comment">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
+
                     <div id="edit" class="modal modal-fixed-footer">
                         <div class="modal-content">
                             <h4>Enter Your New Details</h4>
                             <div class="row">
-                                <form class="col s12" method="POST" action="controller.php" id="editinfo" name="editinfo">
+                                <form class="col s12" method="POST" action="edit.php" id="editinfo" name="editinfo">
                                     <div class="row">
+                                        <input type="hidden" name="csrf" value="<?php echo $csrf ?>">
                                         <div class="input-field col s12">
                                             <input id="firstname" name ="firstname" type="text" class="validate" value="<?php echo $row['firstname']; ?>" required>
                                             <label for='firstname'>First Name</label>

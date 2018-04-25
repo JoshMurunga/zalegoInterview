@@ -29,12 +29,12 @@ and open the template in the editor.
         <main>
             <br>
             <center>
-                <div class="teal-text"><b>Enter Your Email To Receive New Password</b></div><br>
+                <div class="teal-text"><b>Enter Your Email To Reset Password</b></div><br>
                 <div class="container">
                     <div class="container">
                         <div class="container">
                             <div class="row z-depth-2" style="padding: 32px 30px 0px 30px; border: 1px solid #EEE;">
-                                <form class="col s12" action="controller.php" method="POST">
+                                <form class="col s12" action="resetlink.php" method="POST">
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">email</i>

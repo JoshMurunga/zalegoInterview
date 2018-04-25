@@ -14,7 +14,13 @@ and open the template in the editor.
     </head>
     <body>
         <?php
+        session_start();
+        if (empty($_SESSION['key'])) {
+            $_SESSION['key'] = bin2hex(openssl_random_pseudo_bytes(32));
+        }
         
+        $csrf = hash_hmac('sha256', 'my gym partner is a monkey', $_SESSION['key']);
+        setcookie('csrftoken', $csrf);
         ?>
         <header class="page-topbar">
             <div class="navbar-fixed">
@@ -34,18 +40,19 @@ and open the template in the editor.
                     <div class="container">
                         <div class="container">
                             <div class="row z-depth-2" style="padding: 32px 30px 0px 30px; border: 1px solid #EEE;">
-                                <form class="col s12" action="controller.php" method="POST">
+                                <form class="col s12" action="log_in.php" method="POST" name="login" onsubmit="return validateform()">
                                     <div class="row">
                                         <div class="input-field col s12">
+                                            <input type="hidden" name="csrf" value="<?php echo $csrf ?>">
                                             <i class="material-icons prefix">account_circle</i>
-                                            <input id="username" name="username" type="text" class="validate" required>
+                                            <input id="username" name="username" type="text" class="validate" >
                                             <label for="username">Enter Your Username</label>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <i class="material-icons prefix">lock_outline</i>
-                                            <input id="password" name="password" type="password" class="validate" required>
+                                            <input id="password" name="password" type="password" class="validate" >
                                             <label for="password">Enter Your Password</label>
                                         </div>
                                         <label style="float: right">
@@ -79,6 +86,22 @@ and open the template in the editor.
             </div>
         </footer> 
 
+        <script type="text/javascript">
+            function validateform() {
+                var username = document.login.username.value;
+                var password = document.login.password.value;
+
+                if (username == null || username == "") {
+                    alert("Please Enter Your Username");
+                    return false;
+                } else if (password == null || password == "") {
+                    alert("Please Enter Your Password");
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
         <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="js/materialize.min.js"></script>
         <script type="text/javascript" src="js/init.js"></script>

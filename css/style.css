@@ -48,3 +48,11 @@ main {
 #body{
     background-color: whitesmoke;
 }
+
+.side-nav{
+    width: 240px;
+}
+
+#maindash{
+    padding-left: 240px;
+}

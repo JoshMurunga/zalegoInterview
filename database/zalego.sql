@@ -16,6 +16,55 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `image_comments`
+--
+
+DROP TABLE IF EXISTS `image_comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `comments` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_comments`
+--
+
+LOCK TABLES `image_comments` WRITE;
+/*!40000 ALTER TABLE `image_comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `uploads`
+--
+
+DROP TABLE IF EXISTS `uploads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `uploads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file` varchar(45) DEFAULT NULL,
+  `size` varchar(45) DEFAULT NULL,
+  `type` varchar(45) DEFAULT NULL,
+  `comments` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `uploads`
+--
+
+LOCK TABLES `uploads` WRITE;
+/*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
+/*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -23,15 +72,19 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(20) DEFAULT NULL,
   `lastname` varchar(20) DEFAULT NULL,
-  `gender` varchar(10) DEFAULT NULL,
+  `gender` int(11) DEFAULT NULL,
   `languages` varchar(10) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
   `password` varchar(256) DEFAULT NULL,
+  `role` int(11) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `token` varchar(45) DEFAULT NULL,
+  `tstamp` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -52,4 +105,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-04-06 22:09:30
+-- Dump completed on 2018-04-25 15:26:28
